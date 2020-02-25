@@ -1,0 +1,1 @@
+require('/Users/yangyong/Documents/angus/redux-blog/src/app.js')
