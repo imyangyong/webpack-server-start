@@ -1,0 +1,30 @@
+{
+  "name": "webpack-server-start",
+  "version": "0.0.1",
+  "description": "🐦 webpack-based development && prodcution server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AngusYang9/webpack-server-start.git"
+  },
+  "keywords": [
+    "webpack",
+    "server"
+  ],
+  "homepage": "https://github.com/AngusYang9/webpack-server-start#readme",
+  "author": "Angus Yang",
+  "license": "ISC",
+  "dependencies": {
+    "bird-proxy-middleware": "^0.0.*",
+    "body-parser": "^1.19.0",
+    "colors": "^1.4.0",
+    "express": "^4.17.1",
+    "lodash": "^4.17.15",
+    "webpack": "^4.41.6",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-hot-middleware": "^2.25.0"
+  }
+}
