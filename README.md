@@ -41,7 +41,11 @@ var entries = {
 module.exports = {
   // entry: '', here is useless, entry will be replace by 模块入口配置的entry
   output: {
-    // for development. such as: /dev/
+    // for production
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/dist/',
+
+    // for development
     publicPathForDevServer: '/dev/',
     // ...
   },
