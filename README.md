@@ -128,4 +128,13 @@ prodServer('./dist');
 
 # 补充说明
 
+需 build 的 html 模版文件可以增加 `buildTime` 防止浏览器缓存。例如：
+
+```html
+<script type="text/javascript" src="../app.bundle.js?v=@{buildTime}@"></script>
+```
+
+---
+
 关于上文中提到的 bird 代理中间件, 可参考 [bird 使用文档](https://github.com/AngusYang9/bird-proxy-middleware) 。
+
