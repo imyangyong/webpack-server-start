@@ -3,7 +3,7 @@
   <a href="https://www.npmjs.com/package/webpack-server-start"><img alt="npm" src="https://img.shields.io/npm/v/webpack-server-start"></a>
 </p>
 
-🐦 **webpack-based development && prodcution server**
+🐦 **webpack-based 【development server】 && 【build】 && 【prodcution server】**
 
 # 安装
 
@@ -11,12 +11,14 @@
 npm install webpack-server-start --save--dev
 ```
 
-# 一、入口配置 entries
+<span id='development server'></span>
+# development server
 
-可设置多个 SPA 应用的模块入口
+### 1. 业务入口配置
 
+entries.demo.js
 ```javascript
-// demo
+// 可配置多个入口
 var entries = {
   'index': {
      entry: './src/app.js',
@@ -35,54 +37,93 @@ var entries = {
 }
 ```
 
-# 二、webpack config
+### 2. webpack配置
 
+webpack.config.dev.js
 ```javascript
 module.exports = {
-  // entry: '', here is useless, entry will be replace by 模块入口配置的entry
+  // entry: '', here is useless, entry will be replace by 入口配置的entry
   output: {
-    // for production
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/dist/',
+    publicPathForDevServer: '/dev/', // /dev will be as the development root path
 
-    // for development
-    publicPathForDevServer: '/dev/',
+    extraPath: {
+      'image': './image', // this can be use '../image/xxx.png'
+    }   
     // ...
   },
-  // ...
+  // other webpack common config...
 }
 ```
 
-# 开发服务器启动
+### 3. 开发服务器启动
 
 ```javascript
-var webpackConfig = require('./webpack.config.js');
-var entries = require('./entries.js');
+var webpackConfig = require('./webpack.config.dev.js');
+var entries = require('./entries.demo.js');
 var devServer = require('webpack-server-start').devServer;
 
 /**
  * @param {Object} webpackConfig Webpack config.
  * @param {Object} entries 入口配置.
- * @param {Number} port 服务器监听的端口号.
+ * @param {Number} port 服务器监听的端口号, 默认5678.
  * @param {String} birdPath Bird代理中间件，文件路径.
  */
-devServer(webpackConfig, entries, 5678);
+devServer(webpackConfig, entries);
 ```
 
-# 生产环境服务器启动
+# build
 
+### 1. 入口配置
+
+与 [dev server entires](#development-server) 相同规则
+
+### 2. webpack配置
+
+webpack.config.prod.js
 ```javascript
-var webpackConfig = require('./webpack.config.js');
-var entries = require('./entries.js');
-var prodServer = require('webpack-server-start').prodServer;
+var path = require('path');
+module.exports = {
+  // entry: '', here is useless, entry will be replace by 入口配置的entry
+  output: {
+    // for production
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/dist/',    
+
+    extraPath: {
+      'image': './image', // this can be use '../image/xxx.png'
+    }   
+    // ...
+  },
+  // other webpack common config...
+}
+```
+
+### 3. build 开始
+```javascript
+var webpackConfig = require('./webpack.config.prod.js');
+var entries = require('./entries.demo.js');
+var build = require('webpack-server-start').build;
 
 /**
  * @param {Object} webpackConfig Webpack config.
- * @param {Object} entry 入口配置, 注意⚠️这里应用需要打包的入口模块.
- * @param {Number} port 服务器监听的端口号.
+ * @param {Object} entries 入口配置.
+ */
+build(webpackConfig, entries);
+```
+
+# production server
+
+启动构建后的项目
+
+```javascript
+var prodServer = require('webpack-server-start').prodServer;
+
+/**
+ * @param {String} dirPath Can be either absolute or releative path.
+ * @param {Number} port 服务器监听的端口号, 默认8110.
  * @param {String} birdPath Bird代理中间件，文件路径.
  */
-prodServer(webpackConfig, entries['index'], 8110);
+prodServer('./dist');
 ```
 
 # 补充说明

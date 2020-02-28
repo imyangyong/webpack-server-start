@@ -3,7 +3,8 @@ var serverStarter = require('./server-starter');
 var bodyParser = require('body-parser');
 var path = require('path');
 var fs = require('fs');
-var { matchPath } = require('./common/utils');
+var {ensurePath,  matchPath } = require('./common/utils');
+var cp = require('copy-dir');
 var bird = require('bird-proxy-middleware');
 
 var entries = [];
@@ -166,8 +167,16 @@ module.exports = function (webpackConfig, entriesInject, port, birdPath) {
         });
         
         app.use('/_thread_', express.static(path.resolve(__dirname, './Page/Thread/dist')));
-        
-        
+  
+        // extra directory which will be listened
+        if (webpackConfig.output.extraDirPath) {
+          for (var dirPath in webpackConfig.output.extraDirPath) {
+            ensurePath(matchPath(webpackConfig.output.extraDirPath[dirPath], true));
+            app.use('/' + dirPath, express.static(matchPath(webpackConfig.output.extraDirPath[dirPath], true)));
+          }
+          delete webpackConfig.output.extraDirPath;
+        }
+  
         if (birdPath) {
           var birdFilePath = matchPath(birdPath);
           if (fs.existsSync(birdFilePath)) {
