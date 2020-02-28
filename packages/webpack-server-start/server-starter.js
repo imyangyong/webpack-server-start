@@ -41,6 +41,10 @@ var serverStarter = function (opts, entries, port) {
     opts.lifeCycle.generateHtml(app, {});
   }
   
+  if (opts.lifeCycle.loadDevServerLogic) {
+    opts.lifeCycle.loadDevServerLogic(app, {});
+  }
+  
   // 启动 webpack 解析器
   // 得到 webpack 的config之后, 通过计算得到entry列表
   var webpackConfig = opts.lifeCycle.getWebpackConfig();
@@ -67,9 +71,6 @@ var serverStarter = function (opts, entries, port) {
   //   heartbeat: 10 * 1000,
   // }));
   
-  if (opts.lifeCycle.loadDevServerLogic) {
-    opts.lifeCycle.loadDevServerLogic(app, {});
-  }
   
   var httpServer = require('http').createServer(app);
   var starter = function () {

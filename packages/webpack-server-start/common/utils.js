@@ -177,7 +177,7 @@ var utils = {
     }
   },
   
-  matchPath (filePath) {
+  matchPath (filePath, isDir) {
     var fileFolder = npath.dirname(module.parent.parent.parent.parent.filename);
     if (filePath.substr(0, 1) == '.') {
       filePath = npath.resolve(fileFolder, filePath);
@@ -185,7 +185,7 @@ var utils = {
       filePath = npath.resolve(filePath);
     }
     
-    if (!/[\.js|\.html]$/.exec(filePath)) {
+    if (!isDir && !/[\.js|\.html]$/.exec(filePath)) {
       filePath += '.js'
     }
     

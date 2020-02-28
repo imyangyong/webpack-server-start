@@ -1,7 +1,7 @@
 {
   "name": "webpack-server-start",
-  "version": "0.0.1",
-  "description": "🐦 webpack-based development && prodcution server",
+  "version": "0.0.2",
+  "description": "🐦 webpack-based 【development server】 && 【build】 && 【prodcution server】",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,6 +21,8 @@
     "bird-proxy-middleware": "^0.0.*",
     "body-parser": "^1.19.0",
     "colors": "^1.4.0",
+    "copy-dir": "^1.2.0",
+    "delete": "^1.1.0",
     "express": "^4.17.1",
     "lodash": "^4.17.15",
     "webpack": "^4.41.6",
