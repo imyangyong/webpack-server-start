@@ -1,6 +1,6 @@
 {
   "name": "webpack-server-start",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "🐦 webpack-based 【development server】 && 【build】 && 【prodcution server】",
   "main": "index.js",
   "scripts": {
